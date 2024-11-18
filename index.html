@@ -1,131 +1,196 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>性格类型测试</title>
+    <title>我的个人网站</title>
     <style>
+        /* 全局样式 */
         body {
-            background-color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ADD8E6; /*浅蓝色*/
+        }
+        
+        .header {
+            width: 100%;
+            height: 50px;
+            background-color: #4CAF50; /*绿色*/
             color: #fff;
-            font-family: "KaiTi", "楷体", sans-serif;
             text-align: center;
+            padding-top: 10px;
         }
-        h1 {
-            font-size: 2.5em;
-            margin: 20px;
-            text-shadow: 2px 2px 5px #000;
-        }
-        .question {
-            margin: 15px 0;
-        }
-        input[type="text"], input[type="number"], select {
-            padding: 10px;
-            font-size: 1em;
-            border: 1px solid #666;
-            border-radius: 5px;
-            background-color: #444;
-            color: #fff;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1.2em;
+        
+        .header button {
+            float: left;
+            margin-right: 20px;
             border: none;
-            border-radius: 5px;
-            background-color: #666;
-            color: #fff;
+            padding: 5px 15px;
+            font-size: 16px;
             cursor: pointer;
         }
-        button:disabled {
-            background-color: #444;
-            cursor: not-allowed;
+        
+        /* 主页 */
+        #home {
+            width: 100%;
+            height: 500px;
+            background-color: white;
+            margin-top: -50px; /*使主页和顶部header相互抵消*/
         }
-        .message {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.5s, bottom 2s;
+        
+        .news-box {
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .news-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .news-item {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        /* 个人简介 */
+        #about-me {
+            width: 100%;
+            height: 500px;
+            background-color: white;
+            padding-top: -50px; /*使主页和顶部header相互抵消*/
+        }
+        
+        .info-box {
+            margin-bottom: 20px;
+        }
+        
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .info-item {
+            font-size: 14px;
+            color: #666;
+            display: inline-block;
+            width: calc(33.3% - 20px);
+            text-align: center;
+        }
+        
+        /* 代表作品 */
+        #works {
+            width: 100%;
+            height: 500px;
+            background-color: white;
+            padding-top: -50px; /*使主页和顶部header相互抵消*/
+        }
+        
+        .work-box {
+            margin-bottom: 20px;
+        }
+        
+        .work-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .work-item {
+            font-size: 14px;
+            color: #666;
+            display: inline-block;
+            width: calc(33.3% - 20px);
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 联系我 */
+        #contact {
+            width: 100%;
+            height: 200px;
+            background-color: white;
+            padding-top: -50px; /*使主页和顶部header相互抵消*/
+        }
+        
+        .qq-box {
+            margin-bottom: 20px;
+        }
+        
+        .email-box {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-
-<h1>性格类型测试</h1>
-<form id="quizForm">
-    <div class="question">
-        <label for="name">你的名字：</label>
-        <input type="text" id="name" required>
+    <div class="header">
+        <button onclick="location.href='index.html'">首页</button>
+        <button onclick="location.href='#about-me'">个人简介</button>
+        <button onclick="location.href='#works'">代表作品</button>
+        <button onclick="location.href='#contact'">联系我</button>
     </div>
-    <div class="question">
-        <label for="gender">你的性别：</label>
-        <select id="gender" required>
-            <option value="">请选择</option>
-            <option value="male">男</option>
-            <option value="female">女</option>
-            <option value="other">其他</option>
-        </select>
+    
+    <!-- 主页 -->
+    <div id="home">
+        <h1>我的信息</h1>
+        <ul class="news-list">
+            <li class="news-item" style="background-color: #f0f0f0;">2023-02-20</li>
+            <li class="news-item">新闻内容1</li>
+            <li class="news-item" style="background-color: #f0f0f0;">2023-03-01</li>
+            <li class="news-item">新闻内容2</li>
+        </ul>
     </div>
-    <div class="question">
-        <label for="extroverted">你是否外向？（0完全内向——10完全外向）：</label>
-        <input type="number" id="extroverted" min="0" max="10" required>
+    
+    <!-- 个人简介 -->
+    <div id="about-me">
+        <h1>关于我</h1>
+        <div class="info-box">
+            <span class="info-list">
+                <span class="info-item">姓名:</span><span style="width: calc(33.3% - 20px); text-align: center;">张三</span>
+            </span>
+            <span class="info-list">
+                <span class="info-item">生日:</span><span style="width: calc(33.3% - 20px); text-align: center;">1990-01-01</span>
+            </span>
+            <span class="info-list">
+                <span class="info-item">爱好:</span><span style="width: calc(33.3% - 20px); text-align: center;">运动、阅读</span>
+            </span>
+        </div>
+        
+        <!-- 公司信息-->
+        <div class="company-box">
+            <h2>公司名称</h2>
+            <p>公司地址</p>
+            <p>公司电话</p>
+        </div>
+        
+        <div class="info-list">
+            <span class="info-item">邮箱:</span><span style="width: calc(33.3% - 20px); text-align: center;">zhangsan@example.com</span>
+        </div>
     </div>
-    <div class="question">
-        <label for="confident">你是否自信？</label>
-        <select id="confident" required>
-            <option value="">请选择</option>
-            <option value="yes">是</option>
-            <option value="no">否</option>
-        </select>
+    
+    <!-- 代表作品 -->
+    <div id="works">
+        <h1>我的作品</h1>
+        <ul class="work-list">
+            <li class="work-box" style="background-color: #f0f0f0;">
+                <span class="work-item">工作名称1</span><a href="#" onclick="location.href='#'">了解详细信息</a>
+            </li>
+            <li class="work-box" style="background-color: #f0f0f0;">
+                <span class="work-item">工作名称2</span><a href="#" onclick="location.href='#'">了解详细信息</a>
+            </li>
+            <!-- ... -->
+        </ul>
     </div>
-    <div class="question">
-        <label for="sad">你会因为一些不开心的事而难受半天吗？</label>
-        <select id="sad" required>
-            <option value="">请选择</option>
-            <option value="yes">是</option>
-            <option value="no">否</option>
-        </select>
+    
+    <!-- 联系我 -->
+    <div id="contact">
+        <h1>联系我</h1>
+        <p>QQ号:</p><span class="qq-box"><input type="text" value="1234567890"></span>
+        <p>Email地址:</p><span class="email-box"><input type="email" value="zhangsan@example.com"></span>
     </div>
-    <div class="question">
-        <label for="happy">你会因为一些开心的事而兴奋半天吗？</label>
-        <select id="happy" required>
-            <option value="">请选择</option>
-            <option value="yes">是</option>
-            <option value="no">否</option>
-        </select>
-    </div>
-    <div class="question">
-        <label for="change">你想要从内向的人变外向或从外向的人变内向吗？</label>
-        <select id="change" required>
-            <option value="">请选择</option>
-            <option value="yes">是</option>
-            <option value="no">否</option>
-        </select>
-    </div>
-    <div class="question">
-        <label for="strength">你最大的优点是什么？</label>
-        <input type="text" id="strength" required>
-    </div>
-    <div class="question">
-        <label for="weakness">你最大的缺点是什么？</label>
-        <input type="text" id="weakness" required>
-    </div>
-    <button type="submit" id="submitButton">提交</button>
-</form>
-
-<div class="message" id="message" style="font-size: 1em;">你是个傻逼</div>
-
-<script>
-    document.getElementById('quizForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // 阻止表单默认提交
-
-        // 显示消息并移动
-        const message = document.getElementById('message');
-        message.style.opacity = 1;
-        message.style.bottom = '50px';
-    });
-</script>
-
 </body>
 </html>
