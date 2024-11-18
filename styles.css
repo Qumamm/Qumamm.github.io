@@ -1,0 +1,71 @@
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+}
+
+.navbar-brand {
+    color: #34495e;
+}
+
+.card-group img {
+    width: 200px;
+    margin-right: 10px;
+    border-radius: 8px;
+}
+
+/* 主页 */
+#home-header .navbar-toggler-icon::before,
+#home-header .navbar-toggler-icon::after {
+    background-color: #3498db;
+}
+
+#about h2,
+#works h2,
+#contact h2 {
+    color: #6c757d;
+}
+
+/* 个人简介部分 */
+.about p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* 代表作品部分 */
+.works img {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+}
+
+/* 联系我部分 */
+.contact form label,
+.contact form input,
+.contact form textarea {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.contact form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+    }
+}
