@@ -1,0 +1,51 @@
+html
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人网站</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 头部菜单 -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">主页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#contact">联系方式</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主体内容 -->
+    <main id="home">
+        <h1>个人网站</h1>
+        <p>Welcome to my personal website!</p>
+    </main>
+
+    <!-- 关于我部分 -->
+    <section id="about">
+        <h2>About me</h2>
+        <p>I am a software engineer with 5 years of experience.</p>
+        <img src="profile.jpg" alt="My profile picture">
+    </section>
+
+    <!-- 联系方式部分 -->
+    <section id="contact">
+        <h2>Get in touch</h2>
+        <ul>
+            <li><a href="mailto:example@example.com">Email me at example@example.com</a></li>
+            <li><a href="tel:+1234567890">Call me at +1-234-567-8900</a></li>
+            <li><a href="https://www.linkedin.com/in/your-profile-link/" target="_blank">Connect with me on LinkedIn</a></li>
+        </ul>
+    </section>
+
+    <!-- 底部脚本 -->
+    <script src="script.js"></script>
+</body>
+</html>
