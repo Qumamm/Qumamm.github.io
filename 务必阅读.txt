@@ -2,3 +2,5 @@
 这只是一个简易的UI变化，同时支持Microsoft Office和WPS Office
 解压完成后点击C:/Program Files/Office18_Beta_v0.2.1/Setup.exe离线安装
 也可以点击C:/Program Files/Office18_Beta_v0.2.1/Office/Setup32或64或128.exe进行在线安装
+
+如需要更多版本，请联系我：QQ784273536
