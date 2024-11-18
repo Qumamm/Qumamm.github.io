@@ -1,47 +1,78 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人网站</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- 头部菜单 -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">主页</a></li>
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#contact">联系方式</a></li>
-            </ul>
+
+    <!-- 主页 -->
+    <header id="home-header">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">个人网站</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">主页</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">个人简介</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#works">代表作品</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">联系我</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
+
     </header>
 
-    <!-- 主体内容 -->
-    <main id="home">
-        <h1>个人网站</h1>
-        <p>Welcome to my personal website!</p>
-    </main>
-
-    <!-- 关于我部分 -->
-    <section id="about">
-        <h2>About me</h2>
-        <p>I am a software engineer with 5 years of experience.</p>
-        <img src="profile.jpg" alt="My profile picture">
+    <!-- 个人简介部分 -->
+    <section id="about" class="container">
+        <h2>个人简介</h2>
+        <p>这里将会是您的个人介绍。</p>
     </section>
 
-    <!-- 联系方式部分 -->
-    <section id="contact">
-        <h2>Get in touch</h2>
-        <ul>
-            <li><a href="mailto:example@example.com">Email me at example@example.com</a></li>
-            <li><a href="tel:+1234567890">Call me at +1-234-567-8900</a></li>
-            <li><a href="https://www.linkedin.com/in/your-profile-link/" target="_blank">Connect with me on LinkedIn</a></li>
-        </ul>
+    <!-- 代表作品部分 -->
+    <section id="works" class="container">
+        <h2>代表作品</h2>
+        <div class="card-group">
+            <img src="work1.jpg" alt="工作一" width="300" height="250"/>
+            <img src="work2.jpg" alt="工作二" width="300" height="250"/>
+            <!-- 可以添加更多图片 -->
+        </div>
     </section>
 
-    <!-- 底部脚本 -->
-    <script src="script.js"></script>
+    <!-- 联系我部分 -->
+    <section id="contact" class="container">
+        <h2>联系我</h2>
+        <form>
+            <label for="name">名字：</label><br>
+            <input type="text" id="name" name="name"><br>
+
+            <label for="email">邮箱：</label><br>
+            <input type="email" id="email" name="email"><br>
+
+            <label for="message">消息：</label><br>
+            <textarea id="message" name="message"></textarea><br>
+
+            <button type="submit">发送</button>
+        </form>
+    </section>
+
+    <!-- JavaScript 代码 -->
+    <script src="scripts.js"></script>
+
 </body>
 </html>
