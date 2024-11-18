@@ -2,77 +2,130 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>个人网站</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>性格类型测试</title>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: "KaiTi", "楷体", sans-serif;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 20px;
+            text-shadow: 2px 2px 5px #000;
+        }
+        .question {
+            margin: 15px 0;
+        }
+        input[type="text"], input[type="number"], select {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #666;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            background-color: #666;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #444;
+            cursor: not-allowed;
+        }
+        .message {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s, bottom 2s;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- 主页 -->
-    <header id="home-header">
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">个人网站</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">主页</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#about">个人简介</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#works">代表作品</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact">联系我</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+<h1>性格类型测试</h1>
+<form id="quizForm">
+    <div class="question">
+        <label for="name">你的名字：</label>
+        <input type="text" id="name" required>
+    </div>
+    <div class="question">
+        <label for="gender">你的性别：</label>
+        <select id="gender" required>
+            <option value="">请选择</option>
+            <option value="male">男</option>
+            <option value="female">女</option>
+            <option value="other">其他</option>
+        </select>
+    </div>
+    <div class="question">
+        <label for="extroverted">你是否外向？（0完全内向——10完全外向）：</label>
+        <input type="number" id="extroverted" min="0" max="10" required>
+    </div>
+    <div class="question">
+        <label for="confident">你是否自信？</label>
+        <select id="confident" required>
+            <option value="">请选择</option>
+            <option value="yes">是</option>
+            <option value="no">否</option>
+        </select>
+    </div>
+    <div class="question">
+        <label for="sad">你会因为一些不开心的事而难受半天吗？</label>
+        <select id="sad" required>
+            <option value="">请选择</option>
+            <option value="yes">是</option>
+            <option value="no">否</option>
+        </select>
+    </div>
+    <div class="question">
+        <label for="happy">你会因为一些开心的事而兴奋半天吗？</label>
+        <select id="happy" required>
+            <option value="">请选择</option>
+            <option value="yes">是</option>
+            <option value="no">否</option>
+        </select>
+    </div>
+    <div class="question">
+        <label for="change">你想要从内向的人变外向或从外向的人变内向吗？</label>
+        <select id="change" required>
+            <option value="">请选择</option>
+            <option value="yes">是</option>
+            <option value="no">否</option>
+        </select>
+    </div>
+    <div class="question">
+        <label for="strength">你最大的优点是什么？</label>
+        <input type="text" id="strength" required>
+    </div>
+    <div class="question">
+        <label for="weakness">你最大的缺点是什么？</label>
+        <input type="text" id="weakness" required>
+    </div>
+    <button type="submit" id="submitButton">提交</button>
+</form>
 
-    </header>
+<div class="message" id="message" style="font-size: 1em;">你是个傻逼</div>
 
-    <!-- 个人简介部分 -->
-    <section id="about" class="container">
-        <h2>个人简介</h2>
-        <p>这里将会是您的个人介绍。</p>
-    </section>
+<script>
+    document.getElementById('quizForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // 阻止表单默认提交
 
-    <!-- 代表作品部分 -->
-    <section id="works" class="container">
-        <h2>代表作品</h2>
-        <div class="card-group">
-            <img src="work1.jpg" alt="工作一" width="300" height="250"/>
-            <img src="work2.jpg" alt="工作二" width="300" height="250"/>
-            <!-- 可以添加更多图片 -->
-        </div>
-    </section>
-
-    <!-- 联系我部分 -->
-    <section id="contact" class="container">
-        <h2>联系我</h2>
-        <form>
-            <label for="name">名字：</label><br>
-            <input type="text" id="name" name="name"><br>
-
-            <label for="email">邮箱：</label><br>
-            <input type="email" id="email" name="email"><br>
-
-            <label for="message">消息：</label><br>
-            <textarea id="message" name="message"></textarea><br>
-
-            <button type="submit">发送</button>
-        </form>
-    </section>
-
-    <!-- JavaScript 代码 -->
-    <script src="scripts.js"></script>
+        // 显示消息并移动
+        const message = document.getElementById('message');
+        message.style.opacity = 1;
+        message.style.bottom = '50px';
+    });
+</script>
 
 </body>
 </html>
