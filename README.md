@@ -1,1 +1,1 @@
-这是Digital Insight公司Qumamm的个人主页，可以下载里面的产品
+Qumamm曾经写过的配置，可以参考下载，文件名是预算加日期
