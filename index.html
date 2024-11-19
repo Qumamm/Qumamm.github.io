@@ -33,7 +33,7 @@
         /* 主页 */
         #home {
             width: 100%;
-            height: 700px;
+            height: 10000px;
             background-color: white;
             margin-top: -50px; /*使主页和顶部header相互抵消*/
         }
@@ -58,7 +58,7 @@
         /* 个人简介 */
         #about-me {
             width: 100%;
-            height: 600px;
+            height: 10000px;
             background-color: white;
             padding-top: -50px; /*使主页和顶部header相互抵消*/
         }
@@ -84,7 +84,7 @@
         /* 研发产品 */
         #works {
             width: 100%;
-            height: 500px;
+            height: 10000px;
             background-color: white;
             padding-top: -50px; /*使主页和顶部header相互抵消*/
         }
@@ -112,7 +112,7 @@
         /* 联系我 */
         #contact {
             width: 100%;
-            height: 200px;
+            height: 10000px;
             background-color: white;
             padding-top: -50px; /*使主页和顶部header相互抵消*/
         }
@@ -124,6 +124,14 @@
         .email-box {
             margin-bottom: 10px;
         }
+        /*抽取新年祝福*/
+        #gift{
+            width: 100%;
+            height: 800px;
+            background-color: red;
+            padding-top: -50px; /*使主页和顶部header相互抵消*/
+        }
+
     </style>
 </head>
 <body>
@@ -132,6 +140,7 @@
         <button onclick="location.href='#about-me'">个人简介</button>
         <button onclick="location.href='#works'">代表作品</button>
         <button onclick="location.href='#contact'">联系我</button>
+        <button onclick="location.href='#gift'">抽取新年祝福</button>
     </div>
     
     <!-- 主页 -->
@@ -214,5 +223,92 @@
         <p>QQ号:请转到Digital Insight官网寻找
         <p>Email地址:请转到Digital Insight官网寻找
     </div>
+    <!-- 抽取新年祝福 -->
+    <div id="gift">
+<head>
+<meta charset="UTF-8">
+<style>
+  body 
+
+  .content {
+    text-align: center;
+  }
+
+  h1 {
+    font-family: KaiTi, serif; /* 使用楷体字体 */
+    font-size: 3em; /* 大字号，放大一倍 */
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .button {
+    background-color: #FFA07A; /* 浅橙色背景 */
+    border: none;
+    color: white;
+    font-family: KaiTi, serif; /* 使用楷体字体 */
+    padding: 15px 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .button button {
+    font-size: 3em; /* 放大到原来的四倍 */
+    padding: 8px 16px;
+    background-color: yellow;
+    color: black;
+    border: none;
+    cursor: pointer;
+  }
+
+  @keyframes flash {
+    to { opacity: 0 }
+  }
+
+  .button:hover button, .button:focus button {
+    animation: flash 300ms infinite alternate; /* 添加闪烁效果 */
+  }
+
+  #result {
+    font-family: KaiTi, serif; /* 使用楷体字体 */
+    font-size: 10em; /* 放大到原来的四倍 */
+    color: yellow;
+    margin-top: 80px; /* 放大后的结果显示位置调整 */
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="content">
+  <h1 align="center" style="color:yellow ; font-size:80px">抽取新年祝福</h1>
+
+  <div class="button">
+    <button onclick="randomPick()">抽取</button>
+  </div>
+
+  <div id="result" style="display:none;"></div> <!-- 隐藏显示结果 -->
+
+</div>
+
+<script>
+function randomPick() {
+  const choices = ["阖家欢乐", "万事如意", "财源滚滚", "岁岁平安", "新春快乐"];
+  const resultElement = document.getElementById("result");
+
+  // 随机抽取祝福
+  const pickedChoice = choices[Math.floor(Math.random()*choices.length)];
+
+  if (pickedChoice !== undefined) {
+    resultElement.style.display = 'block';
+    resultElement.textContent = pickedChoice;
+  }
+}
+</script>
+
 </body>
 </html>
