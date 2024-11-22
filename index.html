@@ -127,10 +127,17 @@
         /*抽取新年祝福*/
         #gift{
             width: 100%;
-            height: 800px;
+            height: 1000px;
             background-color: red;
             padding-top: -50px; /*使主页和顶部header相互抵消*/
         }
+        /*解压小游戏*/
+        #gift{
+            width: 100%;
+            height: 1000px;
+            padding-top: -50px; /*使主页和顶部header相互抵消*/
+        }
+
 
     </style>
 </head>
@@ -141,6 +148,7 @@
         <button onclick="location.href='#works'">代表作品</button>
         <button onclick="location.href='#contact'">联系我</button>
         <button onclick="location.href='#gift'">抽取新年祝福</button>
+        <button onclick="location.href='#game'">解压小游戏</button>
     </div>
     
     <!-- 主页 -->
@@ -332,6 +340,51 @@ function randomPick() {
   }
 }
 </script>
+</div>
+    <!-- 解压小游戏 -->
+    <div id="game">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!-- Link our styles from main.css -->
+    <link rel="stylesheet" type="text/css" href="main.css" />
+  </head>
+  <body>
+    <!-- #gameContainer is the main game board-->
+    <div id="gameContainer"></div>
 
+    <!-- #scoreContainer contains the scores  -->
+    <div id="scoreContainer">
+      <div class="scoreBoard">Food: <span id="pointsEarned">0</span></div>
+      <div class="scoreBoard">Blocks: <span id="blocksTravelled">0</span></div>
+    </div>
+
+    <!-- #onScreenControllers contains the navigation buttons for mobile screens -->
+    <div id="onScreenControllers">
+      <button id="leftButton">◀️</button>
+      <div>
+        <button id="upButton">🔼</button>
+        <button id="downButton">🔽</button>
+      </div>
+      <button id="rightButton">▶️</button>
+    </div>
+
+    <div class="developerDetails">
+     <div>
+       此游戏为转载游戏，并非Qumamm原创，下方是游戏作者的主页
+      <div>
+        Developed by
+        <a href="https://rabiroshan.com/" target="_blank">Rabi Roshan.</a>
+      </div>
+      <div>
+        View source code on
+        <a href="https://github.com/RabiRoshan/snake_game" target="_blank"
+          >GitHub.</a
+        >
+      </div>
+    </div>
+  </body>
+
+  <!-- #Load our jscript.js containing the game logic -->
+  <script src="jscript.js"></script>
 </body>
 </html>
