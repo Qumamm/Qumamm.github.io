@@ -1111,7 +1111,61 @@ footer p:first-child {
 
 
 /* =========================================================
-   15. 手机端
+   15. 访问量计数器
+   ========================================================= */
+
+/* 计数器面板:黑色表盘 */
+
+.visit-counter {
+    display: inline-flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 13px 22px 15px;
+
+    margin-bottom: 18px;
+
+    background: #050505;
+
+    border: 1px solid #1d2b1d;
+
+    border-radius: 14px;
+
+    box-shadow:
+        inset 0 0 14px rgba(0, 0, 0, 0.9),
+        0 0 18px rgba(51, 255, 85, 0.12),
+        0 5px 18px rgba(15, 23, 42, 0.15);
+}
+
+
+/* 标签 */
+
+.counter-label {
+    color: rgba(51, 255, 85, 0.55);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 4px;
+}
+
+
+/* 数字画布 */
+
+#visitCanvas {
+    display: block;
+
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   16. 手机端
    ========================================================= */
 
 @media (max-width: 700px) {
@@ -1343,7 +1397,7 @@ footer p:first-child {
 
 
 /* =========================================================
-   16. 更小屏幕
+   17. 更小屏幕
    ========================================================= */
 
 @media (max-width: 400px) {
