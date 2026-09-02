@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>访问验证 · Qumamm</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+    background:
+      radial-gradient(circle at 20% 25%, rgba(37, 99, 235, 0.35), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(255, 94, 98, 0.25), transparent 45%),
+      #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .lock-card {
+    width: min(400px, 100%);
+    padding: 40px 34px 28px;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 22px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    text-align: center;
+  }
+  .lock-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    background: #eff6ff;
+    border-radius: 18px;
+  }
+  h1 {
+    font-size: 20px;
+    color: #111827;
+    margin-bottom: 6px;
+  }
+  .sub {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 24px;
+  }
+  input {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid #dbe0e8;
+    border-radius: 12px;
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-align: center;
+    outline: none;
+    color: #111827;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+  }
+  button {
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px;
+    border: 0;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.28);
+    transition: transform 0.1s, filter 0.2s;
+  }
+  button:hover { filter: brightness(1.08); }
+  button:active { transform: scale(0.97); }
+  .error {
+    display: none;
+    margin-top: 12px;
+    color: #dc2626;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .error.show { display: block; animation: shake 0.35s; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    75% { transform: translateX(-4px); }
+  }
+  .back {
+    display: inline-block;
+    margin-top: 18px;
+    color: #94a3b8;
+    font-size: 12px;
+    text-decoration: none;
+  }
+  .back:hover { color: #2563eb; }
+</style>
+</head>
+<body>
+<div class="lock-card">
+  <div class="lock-icon">🔒</div>
+  <h1>神人消消乐</h1>
+  <p class="sub">该页面需要访问密码，请输入后进入</p>
+  <input type="password" id="pwd" placeholder="请输入访问密码" autocomplete="off" maxlength="32">
+  <button id="enter">进入游戏 →</button>
+  <p class="error" id="error">密码错误，请重试</p>
+  <a class="back" href="../index.html">← 返回主页</a>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "lqxxl_unlocked";
+  var PASS = atob("eHVnZW5i"); // xugenb
+
+  /* 计算当前所在目录(兼容带/不带结尾斜杠的访问方式) */
+  function dirOf(p) {
+    if (p.slice(-1) === "/") return p;
+    var i = p.lastIndexOf("/");
+    var seg = i >= 0 ? p.slice(i + 1) : p;
+    if (seg === "index.html") return p.slice(0, i + 1);
+    if (seg.indexOf(".") === -1) return p + "/";
+    return i >= 0 ? p.slice(0, i + 1) : "/";
+  }
+  var dir = dirOf(location.pathname);
+  var gameUrl = dir + "game/index.html";
+
+  function unlocked() {
+    try { return sessionStorage.getItem(KEY) === "yes"; } catch (e) { return false; }
+  }
+  function go() { location.replace(gameUrl); }
+
+  /* 本页已解锁过(同一标签页会话内) → 直接进游戏 */
+  if (unlocked()) { go(); return; }
+
+  var input = document.getElementById("pwd");
+  var error = document.getElementById("error");
+
+  function submit() {
+    if (input.value.trim() === PASS) {
+      try { sessionStorage.setItem(KEY, "yes"); } catch (e) { /* 忽略 */ }
+      go();
+    } else {
+      error.classList.add("show");
+      input.value = "";
+      input.focus();
+    }
+  }
+  document.getElementById("enter").addEventListener("click", submit);
+  input.addEventListener("keydown", function (e) { if (e.key === "Enter") submit(); });
+  input.focus();
+})();
+</script>
+</body>
+</html>
