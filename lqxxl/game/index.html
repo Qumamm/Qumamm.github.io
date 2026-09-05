@@ -79,6 +79,10 @@
   /* 菜单按钮(音效开关) */
   .menu-btn { width: 100%; padding: 8px 0; font-size: 13px; }
   .menu-btn.off { background: linear-gradient(135deg, #5a6b8c, #3d4a66); }
+  .menu-row { display: flex; gap: 6px; margin-bottom: 8px; }
+  .menu-row .menu-btn { flex: 1; padding: 6px 0; font-size: 12px; margin-bottom: 0; }
+  .menu-btn.sel { background: linear-gradient(135deg, #ffd76a, #ff9f43); color: #3a2b00; }
+  .dim { display: none !important; }
   /* 更新日志条目 */
   .log-date {
     display: inline-block;
@@ -94,6 +98,47 @@
   .log-item p { font-size: 12px; line-height: 1.7; color: rgba(255,255,255,.85); }
   .log-item .log-line { margin-top: 7px; color: rgba(255,255,255,.7); }
   .log-item b { color: #ffd76a; }
+  /* 分数榜 */
+  .his-block { margin-top: 10px; }
+  .his-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #ffd76a;
+    border-left: 3px solid #ffd76a;
+    padding-left: 6px;
+    margin-bottom: 4px;
+  }
+  .his-list { list-style: none; margin: 0; padding: 0; }
+  .his-list li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 3px 0;
+    font-size: 12px;
+    color: rgba(255,255,255,.92);
+    border-bottom: 1px dashed rgba(255,255,255,.09);
+  }
+  .his-list li:last-child { border-bottom: 0; }
+  .his-rank {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 800;
+    color: #fff;
+    background: rgba(255,255,255,.14);
+    border-radius: 5px;
+  }
+  .his-list li:nth-child(1) .his-rank { background: #ffd76a; color: #3a2b00; }
+  .his-list li:nth-child(2) .his-rank { background: #c9d4e8; color: #23283a; }
+  .his-list li:nth-child(3) .his-rank { background: #d99a5b; color: #3a2300; }
+  .his-date { font-size: 10px; color: rgba(255,255,255,.45); }
+  .his-score { margin-left: auto; font-size: 13px; font-weight: 800; color: #ffd76a; }
+  .his-none { display: block; color: rgba(255,255,255,.4); font-size: 11px; padding: 3px 0 5px; }
   .topbar {
     width: 100%;
     display: flex;
@@ -140,6 +185,7 @@
     min-width: 78px;
   }
   .score-box b { display: block; font-size: 17px; color: #ffd76a; margin-top: 1px; }
+  .score-box .sbox-label { display: block; font-size: 10px; color: rgba(255,255,255,.65); }
   .btns { display: flex; gap: 8px; }
   button {
     border: 0;
@@ -164,8 +210,10 @@
   }
   .tip { color: rgba(255,255,255,.75); font-size: 12px; }
   .madeby { color: rgba(255,255,255,.45); font-size: 11px; letter-spacing: 1px; margin-top: 2px; }
-  /* 窄屏时侧栏折行到上下 */
+  /* 窄屏时侧栏折行到上下,整页允许滚动 */
   @media (max-width: 1020px) {
+    body { align-items: flex-start; overflow-y: auto; }
+    .game { width: 100%; padding: 10px 8px 22px; }
     .game-row { flex-wrap: wrap; }
     .side-panel { width: 100%; }
   }
@@ -181,15 +229,25 @@
     <!-- 左侧菜单 -->
     <aside class="side-panel menu-panel">
       <h3 class="panel-title">菜单</h3>
+      <div class="menu-row" id="modeRow">
+        <button class="menu-btn sel" data-mode="endless">∞ 无限</button>
+        <button class="menu-btn" data-mode="timed">⏱ 计时</button>
+        <button class="menu-btn" data-mode="steps10">👣 限步</button>
+      </div>
+      <div class="menu-row dim" id="timeRow">
+        <button class="menu-btn sel" data-min="1">1 分钟</button>
+        <button class="menu-btn" data-min="3">3 分钟</button>
+      </div>
       <button id="btnSound" class="menu-btn">🔊 音效：开</button>
     </aside>
 
     <!-- 中间棋盘 -->
     <div class="game-center">
       <div class="topbar">
-        <div class="title">🎯 神人消消乐<span class="ver">v0.12</span></div>
+        <div class="title">🎯 神人消消乐<span class="ver">v0.13</span></div>
         <div class="scores">
           <div class="score-box">得分<b id="score">0</b></div>
+          <div class="score-box"><span class="sbox-label" id="limitLabel">时间</span><b id="timeLeft">∞</b></div>
           <div class="score-box">步数<b id="steps">0</b></div>
           <div class="score-box">最高分<b id="best">0</b></div>
         </div>
@@ -206,9 +264,34 @@
     <aside class="side-panel log-panel">
       <h3 class="panel-title">更新日志</h3>
       <div class="log-item">
+        <span class="log-date">2026/9/5</span>
+        <p><b>v0.13</b> 新增无限模式、计时模式（1 分钟 / 3 分钟自选）与限步模式（10 步），分数榜记录各模式的前 3 高分</p>
+      </div>
+      <div class="log-item">
         <span class="log-date">2026/9/3</span>
         <p><b>v0.12</b> 游戏加入消除音效，可在菜单中开启或者关闭</p>
         <p class="log-line">一步消除 1/2/3+ 组小蛆会播放不同的音效，音效在步数结算完成后播放</p>
+      </div>
+    </aside>
+
+    <!-- 右侧分数榜 -->
+    <aside class="side-panel board-panel">
+      <h3 class="panel-title">分数榜 · TOP3</h3>
+      <div class="his-block">
+        <h4 class="his-title">无限模式</h4>
+        <ol class="his-list" id="hisEndless"></ol>
+      </div>
+      <div class="his-block">
+        <h4 class="his-title">计时 · 1 分钟</h4>
+        <ol class="his-list" id="hisTime1"></ol>
+      </div>
+      <div class="his-block">
+        <h4 class="his-title">计时 · 3 分钟</h4>
+        <ol class="his-list" id="hisTime3"></ol>
+      </div>
+      <div class="his-block">
+        <h4 class="his-title">限步 · 10 步</h4>
+        <ol class="his-list" id="hisSteps10"></ol>
       </div>
     </aside>
   </div>
@@ -295,7 +378,7 @@ function drawIcon(type, x, y, size, radius) {
 /* ================= 游戏状态 ================= */
 const tiles = [];                 // 所有现存 tile
 let grid = null;                  // grid[r][c] -> tile | null
-let score = 0, steps = 0, best = +(localStorage.getItem("xxxl_best") || 0);
+let score = 0, steps = 0, best = 0;
 let busy = false;                 // 动画中锁定输入
 let selected = null;              // {r,c}
 let popups = [];                  // 得分飘字
@@ -511,6 +594,144 @@ function countMatchGroups() {
   return groups.length;
 }
 
+/* ================= 模式与分数榜 ================= */
+const MODE_ENDLESS = "endless";
+const MODE_TIME1 = "time1";
+const MODE_TIME3 = "time3";
+const MODE_STEPS10 = "steps10";
+const MODE_KEYS = [MODE_ENDLESS, MODE_TIME1, MODE_TIME3, MODE_STEPS10];
+const his = {};                       // 各模式历史纪录 {key: [{s:分数,d:时间戳},...]} 只保留前 3
+let mode = MODE_ENDLESS;              // 当前模式
+let timedMinSel = 1;                  // 计时时长选择(1 或 3 分钟)
+let deadline = 0;                     // 计时截止时刻(performance.now 基准)
+let ended = false;                    // 计时是否已结束
+let committed = false;                // 本局分数是否已计入分数榜
+
+function loadHis(key) {
+  try {
+    const arr = JSON.parse(localStorage.getItem("xxxl_his_" + key) || "[]");
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .filter((e) => e && typeof e.s === "number")
+      .sort((a, b) => b.s - a.s)
+      .slice(0, 3);
+  } catch (e) { return []; }
+}
+for (const k of MODE_KEYS) his[k] = loadHis(k);
+function saveHis(key) {
+  try { localStorage.setItem("xxxl_his_" + key, JSON.stringify(his[key].slice(0, 3))); } catch (e) { /* 忽略 */ }
+}
+function topOf(key) { const a = his[key]; return a && a.length ? a[0].s : 0; }
+function hisSeconds() { return mode === MODE_TIME1 ? 60 : mode === MODE_TIME3 ? 180 : 0; }
+function commitCurrent() {
+  if (score <= 0 || committed) return;
+  committed = true;
+  his[mode].push({ s: score, d: Date.now() });
+  his[mode].sort((a, b) => b.s - a.s);
+  his[mode] = his[mode].slice(0, 3);
+  saveHis(mode);
+  renderHis();
+}
+function syncHeader() {
+  const lab = $("limitLabel");
+  const tEl = $("timeLeft");
+  if (mode === MODE_ENDLESS) {
+    lab.textContent = "时间";
+    tEl.textContent = "∞";
+  } else if (mode === MODE_STEPS10) {
+    lab.textContent = "剩余步数";
+    tEl.textContent = String(Math.max(0, 10 - steps));
+  } else {
+    lab.textContent = "时间";
+    tEl.textContent = String(Math.max(0, Math.ceil((deadline - performance.now()) / 1000)));
+  }
+  $("score").textContent = score;
+  $("steps").textContent = steps;
+  $("best").textContent = best;
+}
+function startNewGame() {
+  committed = false;
+  ended = false;
+  busy = false;
+  score = 0;
+  steps = 0;
+  selected = null;
+  hintPair = null;
+  popups.length = 0;
+  best = topOf(mode);
+  if (mode === MODE_TIME1 || mode === MODE_TIME3) deadline = performance.now() + hisSeconds() * 1000;
+  buildBoard();
+  syncHeader();
+}
+function endTimed() {
+  if (ended) return;
+  ended = true;
+  busy = true;
+  $("timeLeft").textContent = "0";
+  commitCurrent();
+  addPopup(boardPx / 2, boardPx / 2, "⏱ 时间到！", true);
+}
+function endSteps() {
+  if (ended) return;
+  ended = true;
+  busy = true;
+  $("timeLeft").textContent = "0";
+  commitCurrent();
+  addPopup(boardPx / 2, boardPx / 2, "👣 步数用尽！", true);
+}
+function renderHis() {
+  const ids = { [MODE_ENDLESS]: "hisEndless", [MODE_TIME1]: "hisTime1", [MODE_TIME3]: "hisTime3", [MODE_STEPS10]: "hisSteps10" };
+  for (const k of MODE_KEYS) {
+    const ol = $(ids[k]);
+    if (!ol) continue;
+    const arr = his[k];
+    if (!arr.length) { ol.innerHTML = '<li class="his-none">暂无记录</li>'; continue; }
+    ol.innerHTML = arr.map((e, i) => {
+      let ds = "";
+      const d = new Date(e.d);
+      if (!isNaN(d.getTime())) ds = (d.getMonth() + 1) + "/" + d.getDate();
+      return '<li><span class="his-rank">' + (i + 1) + '</span><span class="his-date">' + ds + '</span><b class="his-score">' + e.s + '</b></li>';
+    }).join("");
+  }
+}
+function syncModeUI() {
+  const timed = mode === MODE_TIME1 || mode === MODE_TIME3;
+  const wantKey = mode === MODE_ENDLESS ? "endless" : (timed ? "timed" : "steps10");
+  document.querySelectorAll("#modeRow .menu-btn").forEach((b) => {
+    b.classList.toggle("sel", b.dataset.mode === wantKey);
+  });
+  document.querySelectorAll("#timeRow .menu-btn").forEach((b) => {
+    b.classList.toggle("sel", Number(b.dataset.min) === timedMinSel);
+  });
+  $("timeRow").classList.toggle("dim", !timed);
+}
+function switchMode(key) {
+  if (busy && !ended) return;
+  if (key === mode) return;
+  commitCurrent();
+  mode = key;
+  startNewGame();
+  syncModeUI();
+}
+/* 菜单交互:模式与时长 */
+document.querySelectorAll("#modeRow .menu-btn").forEach((b) => {
+  b.addEventListener("click", () => {
+    if (busy && !ended) return;
+    switchMode(b.dataset.mode === "timed" ? "time" + timedMinSel : b.dataset.mode);
+  });
+});
+document.querySelectorAll("#timeRow .menu-btn").forEach((b) => {
+  b.addEventListener("click", () => {
+    if (busy && !ended) return;
+    const m = Number(b.dataset.min);
+    timedMinSel = m;
+    if (mode === MODE_ENDLESS) { switchMode("time" + m); return; }
+    switchMode("time" + m);
+  });
+});
+syncModeUI();
+renderHis();
+
 /* ================= 核心流程 ================= */
 async function resolveBoard() {
   busy = true;
@@ -524,7 +745,6 @@ async function resolveBoard() {
     const pts = set.size * 10 * combo;
     score += pts;
     best = Math.max(best, score);
-    localStorage.setItem("xxxl_best", String(best));
     $("score").textContent = score;
     $("best").textContent = best;
     if (combo >= 2) addPopup(boardPx / 2, boardPx / 2, "连击 x" + combo + "! +" + pts, combo);
@@ -597,11 +817,13 @@ async function trySwap(a, b) {
     return;
   }
   steps++;
-  $("steps").textContent = steps;
+  syncHeader();
   tween(a, a.tx, a.ty, SWAP_MS, "easeOutBack");
   tween(b, b.tx, b.ty, SWAP_MS, "easeOutBack");
   await sleep(SWAP_MS + 20);
   await resolveBoard();
+  // 限步模式:10 步用完即结算
+  if (mode === MODE_STEPS10 && steps >= 10) endSteps();
 }
 
 /* ================= 飘字 ================= */
@@ -672,11 +894,9 @@ $("btnHint").addEventListener("click", () => {
   hintPair = findHint();
 });
 $("btnRestart").addEventListener("click", () => {
-  if (busy) return;
-  score = 0; steps = 0;
-  $("score").textContent = 0; $("steps").textContent = 0; $("best").textContent = best;
-  selected = null; popups.length = 0;
-  buildBoard();
+  if (busy && !ended) return;
+  commitCurrent();
+  startNewGame();
 });
 
 /* ================= 渲染 ================= */
@@ -775,6 +995,16 @@ function loop(now) {
     ctx.fillText(p.text, p.x, p.y - 40 * k);
     ctx.globalAlpha = 1;
   }
+  // 计时模式:倒计时显示与到时结算(等待动画结算完再结束)
+  if ((mode === MODE_TIME1 || mode === MODE_TIME3) && !ended) {
+    const remain = Math.max(0, Math.ceil((deadline - now) / 1000));
+    const tEl = $("timeLeft");
+    if (remain === 0) {
+      if (!busy) endTimed();
+    } else if (tEl.textContent !== String(remain)) {
+      tEl.textContent = remain;
+    }
+  }
   requestAnimationFrame(loop);
 }
 function roundRect(c, x, y, w, h, r) {
@@ -791,8 +1021,11 @@ function roundRect(c, x, y, w, h, r) {
 const images = new Array(TYPES);
 function start() {
   layout();
+  best = topOf(MODE_ENDLESS);
   buildBoard();
-  $("best").textContent = best;
+  syncHeader();
+  syncModeUI();
+  renderHis();
   requestAnimationFrame(loop);
 }
 // 先加载全部图标素材,再开始游戏(图片为本地文件,加载极快)
